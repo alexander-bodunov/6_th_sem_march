@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static '1.css' %}" />
+    <style>
+        .range{
+            float:right;
+        }
+        .friend{
+            border:solid black;
+            width:500px;
+        }
+         .quick_message_add{
+            border:solid black
+        }
+        .quick_message{
+            display:none;
+        }
+        .quick_message_add:hover > .quick_message{
+            display:block;
+        }
+        .reciever{
+            display:none;
+        }
+        #option_pannel {
+            position: fixed;
+            background-color: beige;
+            border:2px dotted black;
+            padding:10px 10px 10px 10px
+            font-family:sans-serif;
+            width:200px;
+            border-bottom-right-radius: 30px;
+            border-top-right-radius: 30px;
+            display:table-cell;
+            margin:25px;
+
+        }
+        p.border{
+            border-bottom: solid black;
+            padding:0px 0px 0px 0px;
+            margin:0px;
+
+        }
+        p{
+            padding:0px 0px 0px 0px;
+            margin:0px;
+        }
+        div.post{
+            border:solid black;
+            padding:10px 10px 10px 10px;
+        }
+        div.friends{
+            position:absolute;
+            left:250px;
+        }
+        div.friend{
+            position:static;
+        }
+    </style>
+</head>
+<body class = {{style_num.background}}>
+    <div id="option_pannel">
+        <p class="border">Здраствуйте,{{user.get_username}}</p>
+        <p class="border"><a href="{% url 'user_page_url' %}"><button type="button">Профиль</button></a></p>
+        <p class="border"><a href="{% url 'message_url' %}"><button type="button">Сообщения</button></a></p>
+        <p class="border"><a href="{% url 'friends_url' %}"><button type="button">Пользователи</button></a></p>
+        <p class="border"><button type="button">Настройки</button></p>
+        <p><a href="{% url 'logout_url' %}"><button type="button">Выйти</button></a></p>
+    </div>
+    <div class="friends">
+        <a href="{% url 'friends_only_url' %}"><button type="button">Только друзья</button></a>
+        {% for i in friend %}
+        <div class="friend">
+            <form action="/userPage/0/0/0/" method="post">{% csrf_token %}
+
+<div class="quick_message_add">
+                <p><input type="submit" value="+" >
+                {{i.username}}:::В сети:::{{i.on}}{% if not i.is_friend %} <a href="{% url 'acept_url' i.id user.get_username %}"><button type="button">+</button></a>{% endif %}{% if i.is_user == 4 %}<a href="{% url 'request_url' i.id user.get_username %}"><button type="button">+</button></a>{% endif %}<a class="range" href="{% url 'decline_url' i.id user.get_username %}"><button type="button">-</button></a><input class="range" type="range" min="0" max="100" step="1" value="{{i.heart_rate}}"></p>
+                <div class="quick_message_add"><input id="text" type="text" name="text" class="quick_message">
+                    <input id="reciever" type="text" name="reciever" class="reciever"  value="{{i.pk}}"></div>
+            </div>
+
+
+        </form>
+            <p></p>
+        </div>
+        {% empty %}
+        <p>Нет друзей</p>
+        {% endfor %}
+    </div>
+
+
+</body>
+</html>

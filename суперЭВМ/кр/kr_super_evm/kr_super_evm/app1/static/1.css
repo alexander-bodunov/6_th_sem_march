@@ -1,0 +1,53 @@
+        .fullscreen{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+        }
+        .profile{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+            background: url(image/profile1.jpg) no-repeat center center fixed;
+        }
+        .iceage1{
+	        background: url(image/iceage1.jpg) no-repeat center center fixed;
+        }
+        .iceage2{
+            background: url(image/iceage2.jpg) no-repeat center center fixed;
+        }
+        .iceage3{
+            background: url(image/iceage3.jpg) no-repeat center center fixed;
+        }
+        .nut{
+            position:static;
+            background-image:url(image/nut.png);
+            color:blue;
+            width:414px;
+            height:330px;
+        }
+        div.puzir{
+            background-image:url(image/pusir_real.png);
+            color:yellow;
+        }
+        div.puzir_in{
+	    margin-left:auto;
+    	    margin-right:auto;
+            width:150px;
+            height:150px;
+            text-align:center;
+	    line-height:150px;
+        }
+        p{
+            alignment:center;
+	    font-size:32px;
+	    font-family: Pompadur, 'Comic Sans MS', cursive;
+        color:yellow;
+        }
+
+        .random-number-cache-invalidation {
+            background: src("x.jpg?v=5656");
+        }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static '1.css' %}" />
+    <style>
+        #option_pannel {
+            position: fixed;
+            background-color: beige;
+            border:2px dotted black;
+            padding:10px 10px 10px 10px
+            font-family:sans-serif;
+            width:200px;
+            border-bottom-right-radius: 30px;
+            border-top-right-radius: 30px;
+            display:table-cell;
+            margin:25px;
+
+        }
+        p.border{
+            border-bottom: solid black;
+            padding:0px 0px 0px 0px;
+            margin:0px;
+
+        }
+        p{
+            padding:0px 0px 0px 0px;
+            margin:0px;
+        }
+        div.post{
+            border:solid black;
+            padding:10px 10px 10px 10px;
+        }
+        div.all{
+            position:absolute;
+            left:250px;
+        }
+    </style>
+</head>
+<body class="profile" >
+
+<div id="option_pannel">
+    <p class="border">Здраствуйте,{{user.get_username}}</p>
+    <p class="border"><button type="button">Профиль</button></p>
+    <p class="border"><a href="{% url 'message_url' %}"><button type="button">Сообщения</button></a></p>
+    <p class="border"><a href="{% url 'friends_url' %}"><button type="button">Пользователи</button></a></p>
+    <p class="border"><button type="button">Настройки</button></p>
+    <p><a href="{% url 'logout_url' %}"><button type="button">Выйти</button></a></p>
+</div>
+<div class="all">
+    <div id="add_profile">
+        <a href="{% url 'profile_add_url' %}"><button type="button">Редактировать профиль</button></a>
+    </div>
+    <div id="user_profile">
+        {% for i in user_page %}
+        <p>Фото : {{i.photo }}</p>
+        {% empty %}
+        <p>Профиль пуст</p>
+        {% endfor %}
+    </div>
+    <div id="add_record">
+        <a href="{% url 'record_add_url' %}"><button type="button">Добавить запись на стену</button></a>
+    </div>
+    <div class="wall">
+        {% for i in wall %}
+        <p>{{i.posted}}</p>
+        <div class="post">
+            <p>{{i.title}}</p>
+            <div class="record_text">
+                {{i.text}}
+            </div>
+        </div>
+        {% empty %}
+        <p>Нет записей на стене</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+        <link rel="stylesheet" type="text/css" href="{% static '1.css' %}" />
+    <style>
+        div.messages{
+            position:absolute;
+            left:250px;
+        }
+        #option_pannel {
+            position: fixed;
+            background-color: beige;
+            border:2px dotted black;
+            padding:10px 10px 10px 10px
+            font-family:sans-serif;
+            width:200px;
+            border-bottom-right-radius: 30px;
+            border-top-right-radius: 30px;
+            display:table-cell;
+            margin:25px;
+        }
+        p.border{
+            border-bottom: solid black;
+            padding:0px 0px 0px 0px;
+            margin:0px;
+            font-size:20px;
+            color:red
+
+        }
+        p{
+            padding:0px 0px 0px 0px;
+            margin:0px;
+            color:yellow;
+        }
+        span{
+            color: orangered;
+        }
+        .quick_message_add{
+            border:solid black
+        }
+        .quick_message{
+            display:none;
+        }
+        .quick_message_add:hover > .quick_message{
+            display:block
+        }
+
+    </style>
+
+</head>
+<body class = {{style_num.background}}>
+<embed src="{% static 'open.mp3'  %}" autostart="true" hidden="false" loop="false" width="2" height="2" align="bottom"> </embed>
+{% ifequal style_num.misic 0  %}
+    <embed src="{% static '1.mp3'  %}" autostart="true" hidden="false" loop="true" width="2" height="2" align="bottom"> </embed>
+{% endifequal %}
+
+{% ifequal style_num.misic 1  %}
+    <embed src="{% static '2.mp3'  %}" autostart="true" hidden="false" loop="true" width="2" height="2" align="bottom"> </embed>
+{% endifequal %}
+
+{% ifequal style_num.misic 2  %}
+    <embed src="{% static '3.mp3'  %}" autostart="true" hidden="false" loop="true" width="2" height="2" align="bottom"> </embed>
+{% endifequal %}
+
+{% ifequal style_num.misic 4  %}
+    <embed src="{% static '1.mp3'  %}" autostart="true" hidden="false" loop="true" width="2" height="2" align="bottom"> </embed>
+{% endifequal %}
+
+<div id="option_pannel">
+    <p class="border">Здраствуйте,{{user.get_username}}</p>
+    <p class="border"><a href="{% url 'user_page_url' %}"><button type="button">Профиль</button></a></p>
+    <p class="border"><button type="button">Сообщения<span>({{len}})</span></button></p>
+    <p class="border"><a href="{% url 'friends_url' %}"><button type="button">Пользователи</button></a></p>
+    <p><button type="button">Настройки</button></p>
+    <p><a href="{% url 'sinchonize' %}"><button type="button">Синхронизация</button></a></p>
+</div>
+<div class="messages">
+    {{pk}}{{len}}
+    <p>{{message.0.name}}</p>
+    {% for i in message %}
+    <div class="message">
+    <form>
+        <div class="quick_message_add {{style_num.message}}">
+            <input type="submit" value="+" >
+            {{i.send_date}}  От кого: {{i.from_user}}
+            <div class="quick_message_add"><input type="text" class="quick_message"></div>
+            <p>{{i.text}}</p>
+        </div>
+    </form>
+
+    </div>
+    {% empty %}
+    <p>Пока нет сообщений</p>
+    {% endfor %}
+</div>
+</body>
+</html>
